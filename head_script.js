@@ -5,8 +5,8 @@
       .querySelectorAll('#side-nav #nav-tree-contents span.arrow')
       .forEach(span => {
         const t = span.textContent.trim();
-        if (t === '►') span.textContent = '\u2B9E';
-        else if (t === '▼') span.textContent = '\u2B9F';
+        if (t === '►') span.textContent = '\u2795\uFE0E'; //\u2B9E
+        else if (t === '▼') span.textContent = '\u2796\uFE0E'; //\u2B9F
       });
   }
 
