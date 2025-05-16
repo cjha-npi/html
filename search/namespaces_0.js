@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['npi_0',['npi',['../d6/d57/namespacenpi.html',1,'']]],
-  ['npi_3a_3aprops_1',['props',['../d7/d8c/namespacenpi_1_1props.html',1,'npi']]]
+  ['anonymous_5fnamespace_7banonname_2ecpp_7d_0',['anonymous_namespace{AnonName.cpp}',['../namespaceanonymous__namespace_02_anon_name_8cpp_03.html',1,'']]]
 ];
