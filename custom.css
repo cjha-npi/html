@@ -3,6 +3,7 @@
 #side-nav {
   /* default is ~30px; try something tighter like 24px or 1.5rem */
   --tree-item-height: 1.4rem;
+  min-width: 50px !important;
 }
 
 #side-nav #nav-tree-contents span.arrow {
