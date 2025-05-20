@@ -1,3 +1,6 @@
+
+
+
 // Replace the expand/collapse icons in navigation tree
 (function () {
   // 1) Our replacement logic
@@ -6,8 +9,8 @@
       .querySelectorAll('#side-nav #nav-tree-contents span.arrow')
       .forEach(span => {
         const t = span.textContent.trim();
-        if (t === '►') span.textContent = '\u2B9E'; // \u2795\uFE0E
-        else if (t === '▼') span.textContent = '\u2B9F'; // \u2796\uFE0E
+        if (t === '►') span.textContent = '\u25CF\uFE0F'; //\u2795\uFE0E for bold +; \u2B9E for modern arrow but does not work by default on Android
+        else if (t === '▼') span.textContent = '\u25CB\uFE0F'; //\u2796\uFE0E for bold - \u2B9F for modern arrow but does not work by default on Android
       });
   }
 
@@ -30,6 +33,8 @@
     onReady();
   }
 })();
+
+
 
 // Remove the top Item in Navigation Tree in the Sidebar
 document.addEventListener("DOMContentLoaded", function () {
@@ -61,3 +66,4 @@ document.addEventListener("DOMContentLoaded", function () {
     clearInterval(interval);
   }, 100);
 });
+
