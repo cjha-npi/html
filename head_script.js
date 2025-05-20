@@ -35,6 +35,7 @@
 })();
 
 
+/*
 
 // Remove the top Item in Navigation Tree in the Sidebar
 document.addEventListener("DOMContentLoaded", function () {
@@ -67,3 +68,4 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 100);
 });
 
+*/
