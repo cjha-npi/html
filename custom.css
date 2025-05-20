@@ -49,3 +49,26 @@ html, body {
 #content {
   width: calc(100% - var(--sidebar-width) + 1px) !important;
 }
+
+/* custom.css */
+#text-resizer {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background: rgba(255,255,255,0.8);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  z-index: 1000;
+  display: flex;
+  gap: 0.5rem;
+}
+#text-resizer button {
+  border: 1px solid #888;
+  background: none;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+#text-resizer button:hover {
+  background: rgba(0,0,0,0.1);
+}

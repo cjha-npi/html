@@ -35,6 +35,79 @@
 })();
 
 
+// custom.js
+(function() {
+  // your base sizes (match what Doxygen Awesome defines by default)
+  const baseSizes = {
+    '--page-font-size':       15.6,
+    '--navigation-font-size': 14.4,
+    '--toc-font-size':        13.4,
+    '--code-font-size':       14.0,
+    '--title-font-size':      22.0
+  };
+
+  // read or default the scale
+  let scale = parseFloat(localStorage.getItem('doxyTextScale')) || 1;
+
+  // apply all CSS vars using current scale
+  function applyScale() {
+    const root = document.documentElement;
+    for (const [prop, base] of Object.entries(baseSizes)) {
+      root.style.setProperty(prop, (base * scale).toFixed(1) + 'px');
+    }
+    localStorage.setItem('doxyTextScale', scale);
+  }
+
+  // build and insert controls after <body> exists
+  function initTextResizer() {
+    const container = document.createElement('div');
+    container.id = 'text-resizer';
+    container.style.cssText = `
+      position: fixed; bottom: 1rem; right: 1rem;
+      background: rgba(255,255,255,0.8); border-radius: 4px;
+      padding: 0.5rem; z-index: 1000; display: flex; gap: 0.5rem;
+    `;
+    const btnDec = document.createElement('button');
+    const btnInc = document.createElement('button');
+    btnDec.textContent = 'A –';
+    btnInc.textContent = 'A +';
+    [btnDec, btnInc].forEach(btn => {
+      btn.style.cssText = `
+        border: 1px solid #888; background: none;
+        padding: 0.25rem 0.5rem; font-size: 1rem; cursor: pointer;
+      `;
+      btn.addEventListener('mouseenter', ()=> btn.style.background='rgba(0,0,0,0.1)');
+      btn.addEventListener('mouseleave', ()=> btn.style.background='none');
+    });
+    container.appendChild(btnDec);
+    container.appendChild(btnInc);
+    document.getElementsByTagName('body')[0].appendChild(container);
+
+    // hook up the buttons
+    btnInc.addEventListener('click', () => {
+      scale = Math.min(2, +(scale + 0.1).toFixed(2));
+      applyScale();
+    });
+    btnDec.addEventListener('click', () => {
+      scale = Math.max(0.5, +(scale - 0.1).toFixed(2));
+      applyScale();
+    });
+
+    // initial apply
+    applyScale();
+  }
+
+  // wait for body
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTextResizer);
+  } else {
+    initTextResizer();
+  }
+})();
+
+
+
+
 /*
 
 // Remove the top Item in Navigation Tree in the Sidebar
