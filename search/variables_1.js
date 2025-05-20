@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['heightnoresize_0',['HeightNoResize',['../d7/d8c/namespacenpi_1_1props.html#abd41bd99211cf0fa9c00b394e6141769',1,'npi::props']]]
+  ['dvalue_5f_0',['dValue_',['../d4/d55/structnpi_1_1_some_struct.html#a50b2023890016f5302858afb56d4bbc2',1,'npi::SomeStruct']]]
 ];

@@ -1,5 +1,11 @@
 var _props_8hpp =
 [
+    [ "npi::SomeStruct", "d4/d55/structnpi_1_1_some_struct.html", "d4/d55/structnpi_1_1_some_struct" ],
+    [ "SomeEnum", "dc/d76/_props_8hpp.html#a3cd4af5a29235ae57197d2fdb1867fc0", [
+      [ "Value1", "dc/d76/_props_8hpp.html#a3cd4af5a29235ae57197d2fdb1867fc0a7ee5a281b28d7ca1fab06b43d0b7d8ac", null ],
+      [ "Value2", "dc/d76/_props_8hpp.html#a3cd4af5a29235ae57197d2fdb1867fc0a0fe13ed1638da4d4b1ef316729f3bb32", null ],
+      [ "Value3", "dc/d76/_props_8hpp.html#a3cd4af5a29235ae57197d2fdb1867fc0a121bcef76aa7694f7d8ef4d381b86dad", null ]
+    ] ],
     [ "checkFunction", "dc/d76/_props_8hpp.html#ae140833a885f19c902533334cf1f090f", null ],
     [ "someFunction", "dc/d76/_props_8hpp.html#abb25960ed65b6d1577fe71d8e70f393a", null ],
     [ "HeightNoResize", "dc/d76/_props_8hpp.html#abd41bd99211cf0fa9c00b394e6141769", null ],

@@ -1,9 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2&display=swap');
-
 div.header {
   position: sticky !important;
-  top: 0;
-  z-index: 9998;
+  top: 0px !important;
+  z-index: 9990;
+}
+/* for viewports 768px and wider, pull it up 40px */
+@media (min-width: 768px) {
+  div.header {
+    top: -40px !important;
+  }
 }
 
 div.title {
@@ -13,90 +17,41 @@ div.title {
   padding: 5px 16px !important;
 }
 
+/* 1) Override the global “item height” variable, scoped only to the sidebar */
 #side-nav {
-  display: none !important;
+  /* default is ~30px; try something tighter like 24px or 1.5rem */
+  --tree-item-height: 1.4rem;
 }
 
-#nav-primary,
-#nav-members {
-  position: fixed !important;
-  background: var(--side-nav-background);
-  border-right: 1px solid var(--separator-color);
-  z-index: 9999 !important;
-  /* must be greater than any Doxygen layer */
-  overflow: auto !important;
+#side-nav #nav-tree-contents span.arrow {
+  font-size: 0.7rem !important;
+  padding-bottom: 0.15em;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
-#nav-primary {
-  background: rgba(0, 120, 0, 0.1) !important;
-  left: 0px;
-
+/* Gets rid of the small blue bar on the very left of the selected and/or current item in tree */
+#side-nav #nav-tree-contents .item.selected::after,
+#side-nav #nav-tree-contents .item.current::after {
+  content: none !important;
 }
 
-#nav-members {
-  background: rgba(120, 0, 0, 0.1) !important;
+/* Undo any special changes to the selected and/or current item */
+#side-nav #nav-tree-contents .item.selected *,
+#side-nav #nav-tree-contents .item.current * {
+  /* undo the bold */
+  font-weight: normal !important;
+  /* strip any text‐shadow */
+  text-shadow: none !important;
+  /* back to normal sidebar color */
+  color: inherit !important;
 }
 
-/* Resizer bars */
-#nav-primary-resizer,
-#nav-members-resizer {
-  position: fixed !important;
-  top: 0;
-  bottom: 0;
-  /* adjusted by JS */
-  width: 5px;
-  background: none;
-  cursor: ew-resize;
-  z-index: 10000 !important;
-}
-
-@media (max-width: 768px) {
-
-  #nav-primary,
-  #nav-members,
-  #nav-primary-resizer,
-  #nav-members-resizer {
-    display: none !important;
-  }
-}
-
-#nav-primary #my-nav-tree,
-#nav-primary #my-nav-tree ul {
-  font-size: 0.85rem !important;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* 2. Indent each <li> 16px relative to its parent */
-#nav-primary #my-nav-tree li {
-  margin-left: 16px;
-}
-
-/* 3. Make links look like plain text */
-#nav-primary #my-nav-tree a {
-  font-weight: normal;
-  color: var(--page-foreground-color) !important;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-#my-nav-tree li .toggle {
-  cursor: pointer;
-  user-select: none;
-  margin-right: 4px;
-}
-
-#my-nav-tree li.has-children.collapsed>ul {
-  display: none;
-}
-
-#my-nav-tree li.has-children.collapsed>.toggle::before {
-  content: "\2B9E";
-  font-size: 0.75rem !important;
-}
-
-#my-nav-tree li.has-children.expanded>.toggle::before {
-  content: "\2B9F";
-  font-size: 0.75rem !important;
+/* Apply custom changes to selected and/or current item */
+#side-nav #nav-tree-contents .item.selected,
+#side-nav #nav-tree-contents .item.current {
+  /* White text */
+  color: rgb(255, 255, 255) !important;
+  /* Blue background to match with the rest of the theme */
+  background-color: rgba(20, 110, 210, 1) !important;
 }
