@@ -37,3 +37,14 @@
   /* Blue background to match with the rest of the theme */
   background-color: rgba(20, 110, 210, 1) !important;
 }
+
+html, body {
+  min-height: -webkit-fill-available;
+  overflow-x: hidden;    /* hide any tiny overflow on the right */
+  overflow-y: hidden;    /* hide any tiny overflow on the bottom */
+}
+
+/* If you need the calc() nudge: */
+#content {
+  width: calc(100% - var(--sidebar-width) + 1px) !important;
+}
