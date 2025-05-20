@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "Test Project", "index.html", [
+  [ "Test Project 2", "index.html", [
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -52,8 +52,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_anon_name_8cpp.html",
-"conceptnpi_1_1_supports_shared_from_this.html"
+"annotated.html",
+"df/d94/classnpi_1_1_link.html#a84c0017edc714b5163ee7392efef8503"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

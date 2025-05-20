@@ -34,13 +34,13 @@ $extrastylesheet
 <!-- Custom Stylesheet -->
 <link href="$relpath^custom.css" rel="stylesheet" type="text/css" />
 
-<!-- Doxygen-Awesome dark mode toggle -->
+<!-- Doxygen-Awesome Dark Mode Toggle -->
 <script type="text/javascript" src="$relpath^dark_mode_toggle.js"></script>
 <script type="text/javascript">
   DoxygenAwesomeDarkModeToggle.init()
 </script>
 
-<!-- Custom Javascript -->
+<!-- Custom Header Javascript (this is suuposed to run before head finishes) -->
 <script type="text/javascript" src="$relpath^head_script.js"></script>
 
 <!-- --------------------------------------------------------------------------- -->
@@ -52,6 +52,18 @@ $extrastylesheet
 <div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
   <!--END FULL_SIDEBAR-->
 <!--END DISABLE_INDEX-->
+
+<!-- --------------------------------------------------------------------------- -->
+
+  <!-- Cutom Main Navigation Bar Container -->
+  <div id="nav-primary"></div>
+  <div id="nav-primary-resizer"></div>
+
+  <!-- Cutom Temp Navigation Bar Container -->
+  <div id="nav-members"></div>
+  <div id="nav-members-resizer"></div>
+
+<!-- --------------------------------------------------------------------------- -->
 
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
 
