@@ -1,3 +1,8 @@
+:root {
+  /* these will be populated by JS at runtime */
+  --btn-v-offset: 0px;
+  --btn-h-offset: 0px;
+}
 
 /* 1) Override the global “item height” variable, scoped only to the sidebar */
 #side-nav {
@@ -50,25 +55,95 @@ html, body {
   width: calc(100% - var(--sidebar-width) + 1px) !important;
 }
 
-/* custom.css */
+
+
+
+/* 1) Introduce the scale variable on your main pane */
+.contents {
+  --doxy-scale: 1;
+}
+
+/* 2) Override the theme’s body-text rules inside .contents */
+.contents .text-block,
+.contents p,
+.contents li,
+.contents td,
+.contents th,
+.contents blockquote,
+.contents .groupheader {
+  font-size: calc(var(--page-font-size) * var(--doxy-scale)) !important;
+}
+
+/* 3) Override the theme’s code rules inside .contents */
+.contents code,
+.contents pre,
+.contents .fragment {
+  font-size: calc(var(--code-font-size) * var(--doxy-scale)) !important;
+}
+
+
+
+
+/* —— Container (unchanged) —— */
 #text-resizer {
   position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  background: rgba(255,255,255,0.8);
-  border-radius: 0.25rem;
-  padding: 0.5rem;
-  z-index: 1000;
+  bottom: var(--btn-v-offset);
+  right:  var(--btn-h-offset);
+  font-size: 0.75rem;
   display: flex;
-  gap: 0.5rem;
+  gap: 5px;
+  z-index: 10000;
+  transition: opacity .2s ease;
 }
+
+
+/* —— Buttons: rounded, no border, translucent bg —— */
 #text-resizer button {
-  border: 1px solid #888;
-  background: none;
-  padding: 0.25rem 0.5rem;
-  font-size: 1rem;
-  cursor: pointer;
+  position: relative;               /* for tooltip */
+  font-family: inherit;
+  font-size:   inherit;
+  border:      none;                /* remove border */
+  border-radius: 0.25rem;            /* pill-shaped */
+  background:  rgba(20,110,210);/* translucent */
+  color: rgb(255, 255, 255);
+  padding:     0.3rem 0.4rem 0.32rem;       /* a bit more roomy */
+  cursor:      pointer;
+  transition:  opacity .25s;
 }
+
+html:not(.dark-mode) #text-resizer button{
+  opacity: 0.3;
+}
+
+html.dark-mode #text-resizer button{
+  opacity: 0.1;
+}
+
 #text-resizer button:hover {
-  background: rgba(0,0,0,0.1);
+  opacity: 1 !important;
+}
+
+/* —— Tooltip styling —— */
+#text-resizer button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;                     /* above the button */
+  left: 50%;
+  transform: translateX(-50%) translateY(-5px);
+  background: rgba(0,0,0,0.85);
+  color:    #fff;
+  font-size: 0.7rem;
+  padding:   0.2rem 0.4rem 0.25rem;
+  white-space: nowrap;
+  border-radius: 0.25rem;
+  opacity:   0;
+  pointer-events: none;
+  transition: opacity .2s;
+  z-index:   10001;
+}
+#text-resizer button.inc::after{
+  transform: translateX(-87.5%) translateY(-5px) !important;
+}
+#text-resizer button:hover::after {
+  opacity: 1;
 }
