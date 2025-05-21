@@ -30,7 +30,7 @@
 #side-nav #nav-tree-contents .item.selected,
 #side-nav #nav-tree-contents .item.current {
   color: rgb(255, 255, 255) !important;
-  background-color: rgba(20, 110, 210, 1) !important;
+  background-color: rgba(255, 0, 0, 1) !important;
 }
 
 /* Change the values so that on non-common display sizes it appears correctly */
