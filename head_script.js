@@ -62,124 +62,156 @@
 
 
   // —————————————————————————————————————————————
-  // TEXT RESIZER: only page & code, + RESET
+  // SEARCH BAR TWEAK
   // —————————————————————————————————————————————
 
-  const DEFAULT_SCALE = 1;
-  let scale = parseFloat(localStorage.getItem('doxyTextScale')) || DEFAULT_SCALE;
+  function initSearchPlaceholder(attempt = 0) {
 
-  function applyScale() {
-    const contents = document.querySelector('.contents');
-    if (!contents) return;
-    contents.style.setProperty('--doxy-scale', scale);
-    localStorage.setItem('doxyTextScale', scale);
-  }
-
-  function resetScale() {
-    scale = DEFAULT_SCALE;
-    applyScale();
-  }
-
-  function initTextResizer() {
-    if (document.getElementById('text-resizer')) return;
-
-    const c = document.createElement('div');
-    c.id = 'text-resizer';
-    const btnD = document.createElement('button');
-    const btnR = document.createElement('button');
-    const btnI = document.createElement('button');
-    btnD.className = 'resize-btn dec'; btnD.textContent = '\u2796\uFE0E';
-    btnR.className = 'resize-btn def'; btnR.textContent = 'Default';
-    btnI.className = 'resize-btn inc'; btnI.textContent = '\u2795\uFE0E';
-
-    btnD.setAttribute('data-tooltip', 'Decrease text size');
-    btnR.setAttribute('data-tooltip', 'Default Text size');
-    btnI.setAttribute('data-tooltip', 'Increase text size');
-
-    btnD.addEventListener('click', () => { scale = Math.max(0.5, +(scale - 0.05).toFixed(2)); applyScale(); });
-    btnI.addEventListener('click', () => { scale = Math.min(2, +(scale + 0.05).toFixed(2)); applyScale(); });
-    btnR.addEventListener('click', resetScale);
-
-    c.append(btnD, btnR, btnI);
-    document.body.appendChild(c);
-    applyScale();
-  }
-
-  // ————————————————————————————— UPDATE OFFSETS —————————————————————————————
-  function updateOffsets() {
-    // 1) nav-path height as before
-    const nav = document.getElementById('nav-path') || document.getElementById('navpath');
-    const navH = nav ? nav.getBoundingClientRect().height : 0;
-
-    // 2) measure the vertical scrollbar width of the doc-content pane
-    const dc = document.getElementById('doc-content');
-    const sbW = dc ? (dc.offsetWidth - dc.clientWidth) : 0;   // total minus inner = scrollbar
-    const sbH = dc ? (dc.offsetHeight - dc.clientHeight) : 0;
-
-    document.documentElement.style.setProperty('--btn-v-offset', navH + sbH + 5 + 'px');
-    document.documentElement.style.setProperty('--btn-h-offset', sbW + 5 + 'px');
-  }
-
-  function setupOffsetListeners() {
-    // initial
-    updateOffsets();
-
-    // on window resize
-    window.addEventListener('resize', updateOffsets);
-
-    // **new**: watch #doc-content for size changes
-    const dc = document.getElementById('doc-content');
-    if (dc && window.ResizeObserver) {
-      new ResizeObserver(updateOffsets).observe(dc);
+    // Wait for the contents to load so that search bar can be tweaked
+    const field = document.getElementById('MSearchField');
+    if (!field || !window.searchBox || !window.indexSectionNames || !window.indexSectionLabels) {
+      if (attempt < 20) {
+        return setTimeout(() => initSearchPlaceholder(attempt + 1), 50); // retry in 50 ms
+      } else {
+        console.warn('Giving up initSearchPlaceholder() after 20 tries');
+        return;
+      }
     }
+
+    // Update the search bar by adding what is being searched to the placeholder
+    function updatePlaceholder() {
+      const idx = searchBox.searchIndex;
+      const label = indexSectionLabels[idx] || 'All';
+      const ph = `Search ${label}`;
+      document.getElementById('MSearchField').setAttribute('placeholder', ph);
+    }
+
+    // run once right away to pick up whatever the default is
+    updatePlaceholder();
+
+    // patch the “you clicked an item” hook
+    if (typeof searchBox.OnSelectItem === 'function') {
+      const orig = searchBox.OnSelectItem;
+      searchBox.OnSelectItem = function (id) {
+        const ret = orig.call(this, id);
+        updatePlaceholder();
+        return ret;
+      };
+    }
+
+    window.addEventListener('resize', updatePlaceholder);
   }
+
+  // —————————————————————————————————————————————
+  // AUTO-RELOAD
+  // —————————————————————————————————————————————
+  const GIT_BRANCH = 'main'; // branch on GitGub
+  const POLL_INTERVAL = 5 * 60_000; // poll every 5 minutes
+  const RELOAD_DELAY = 5 * 60_000; // reload 5 minutes after detect
+  const SHA_STORAGE_KEY = 'autoReloadLastSha'; // localStorage key to remember last‐seen SHA
+
+  function detectGitHubContext() {
+    console.log('[AUTO-RELOAD] [Detecting GitGub Context] - Start');
+    const { hostname, pathname } = window.location;
+    if (!hostname.endsWith('.github.io')) {
+      console.log('[AUTO-RELOAD] [Detecting GitGub Context] - Not Hosted On GitHub');
+      return {};
+    }
+    // Remove leading/trailing slashes, split path
+    const parts = pathname.replace(/^\/|\/$/g, '').split('/');
+    const user = hostname.replace('.github.io', '');
+    // project‐page: first segment is repo name; user‐page: repo === user
+    const repo = parts[0] || user;
+    console.log('[AUTO-RELOAD] [Detecting GitGub Context] - Hosted On GitHub: ', user, '[User]', repo, '[Repo]');
+    return { user, repo, isPages: true };
+  }
+
+  async function fetchLatestSha(user, repo, branch) {
+    console.log('[AUTO-RELOAD] [Fetch Latest SHA] - Start');
+    const url = `https://api.github.com/repos/${user}/${repo}/commits/${branch}`;
+    const resp = await fetch(url, {
+      headers: { 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (!resp.ok) {
+      console.warn('[AUTO-RELOAD] [Fetch Latest SHA] - GitHub API returned HTTP ${resp.status}');
+      throw new Error(`GitHub API returned HTTP ${resp.status}`);
+    }
+    const data = await resp.json();
+    console.log('[AUTO-RELOAD] [Fetch Latest SHA] - End');
+    return data.sha;
+  }
+
+  function bustCssCache() {
+    console.log('[AUTO-RELOAD] [Bust CSS Cache] - Start');
+    document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+      try {
+        const u = new URL(link.href);
+        u.searchParams.set('_t', Date.now());
+        link.href = u.toString();
+      } catch (_) {
+        // ignore invalid URLs
+      }
+    });
+  }
+
+  (async function initAutoReload() {
+    const ctx = detectGitHubContext();
+    if (!ctx.isPages) {
+      // Not on a GitHub Pages domain → do nothing
+      return;
+    }
+    const { user, repo } = ctx;
+
+    // 1) Read last‐seen SHA (if any) from localStorage
+    let lastSha = localStorage.getItem(SHA_STORAGE_KEY) || null;
+    let currentSha;
+
+    // 2) Fetch the GitHub Pages branch’s current SHA
+    try {
+      currentSha = await fetchLatestSha(user, repo, GIT_BRANCH);
+    } catch (err) {
+      console.warn('[AUTO-RELOAD] initial SHA fetch failed:', err);
+      return;
+    }
+
+    // 3) If we had a previous SHA and it’s different, we missed an update
+    if (lastSha && lastSha !== currentSha) {
+      console.log('[AUTO-RELOAD] missed update detected; scheduling reload…');
+      setTimeout(() => {
+        bustCssCache();
+        location.reload();
+      }, RELOAD_DELAY);
+    }
+
+    // 4) Store the newly fetched SHA for next session
+    localStorage.setItem(SHA_STORAGE_KEY, currentSha);
+
+    // 5) Poll periodically for *future* new commits
+    setInterval(async () => {
+      try {
+        const sha = await fetchLatestSha(user, repo, GIT_BRANCH);
+        if (sha !== currentSha) {
+          console.log('[AUTO-RELOAD] new deploy detected; scheduling reload…');
+          setTimeout(() => {
+            bustCssCache();
+            location.reload();
+          }, RELOAD_DELAY);
+          currentSha = sha;
+          localStorage.setItem(SHA_STORAGE_KEY, sha);
+        }
+      } catch (err) {
+        console.error('[AUTO-RELOAD] polling error:', err);
+      }
+    }, POLL_INTERVAL);
+  })();
 
 
   // —————————————————————————————————————————————
   // BOOTSTRAP WHEN DOM IS READY
   // —————————————————————————————————————————————
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      initNavTweaks();
-      initTextResizer();
-      setupOffsetListeners();
-    });
-  } else {
-    initNavTweaks();
-    initTextResizer();
-    setupOffsetListeners();
-  }
-
-})();
-
-
-
-/*
-
-// Replace the expand/collapse icons in navigation tree
-(function () {
-  // 1) Our replacement logic
-  function replaceArrows() {
-    document
-      .querySelectorAll('#side-nav #nav-tree-contents span.arrow')
-      .forEach(span => {
-        const t = span.textContent.trim();
-        if (t === '►') span.textContent = '\u25CF\uFE0F'; //\u2795\uFE0E for bold +; \u2B9E for modern arrow but does not work by default on Android
-        else if (t === '▼') span.textContent = '\u25CB\uFE0F'; //\u2796\uFE0E for bold - \u2B9F for modern arrow but does not work by default on Android
-      });
-  }
-
-  // 2) Once the DOM is ready, kick things off
   function onReady() {
-    const tree = document.getElementById('nav-tree-contents');
-    if (!tree) return;
-
-    // 3) Replace any arrows already inserted
-    replaceArrows();
-
-    // 4) Observe for ANY future arrow insertions/changes
-    const mo = new MutationObserver(replaceArrows);
-    mo.observe(tree, { childList: true, subtree: true, characterData: true });
+    initNavTweaks();
+    initSearchPlaceholder();
   }
 
   if (document.readyState === 'loading') {
@@ -187,108 +219,5 @@
   } else {
     onReady();
   }
+
 })();
-
-
-// custom.js
-(function () {
-  // your base sizes (match what Doxygen Awesome defines by default)
-  const baseSizes = {
-    '--page-font-size': 15.6,
-    '--navigation-font-size': 14.4,
-    '--toc-font-size': 13.4,
-    '--code-font-size': 14.0,
-    '--title-font-size': 22.0
-  };
-
-  // read or default the scale
-  let scale = parseFloat(localStorage.getItem('doxyTextScale')) || 1;
-
-  // apply all CSS vars using current scale
-  function applyScale() {
-    const root = document.documentElement;
-    for (const [prop, base] of Object.entries(baseSizes)) {
-      root.style.setProperty(prop, (base * scale).toFixed(1) + 'px');
-    }
-    localStorage.setItem('doxyTextScale', scale);
-  }
-
-  // build and insert controls after <body> exists
-  function initTextResizer() {
-    const container = document.createElement('div');
-    container.id = 'text-resizer';
-    const btnDec = document.createElement('button');
-    const btnInc = document.createElement('button');
-    btnDec.textContent = 'A –';
-    btnInc.textContent = 'A +';
-    [btnDec, btnInc].forEach(btn => {
-      btn.style.cssText = `
-        border: 1px solid #888; background: none;
-        padding: 0.25rem 0.5rem; font-size: 1rem; cursor: pointer;
-      `;
-      btn.addEventListener('mouseenter', () => btn.style.background = 'rgba(0,0,0,0.1)');
-      btn.addEventListener('mouseleave', () => btn.style.background = 'none');
-    });
-    container.appendChild(btnDec);
-    container.appendChild(btnInc);
-    document.getElementsByTagName('body')[0].appendChild(container);
-
-    // hook up the buttons
-    btnInc.addEventListener('click', () => {
-      scale = Math.min(2, +(scale + 0.1).toFixed(2));
-      applyScale();
-    });
-    btnDec.addEventListener('click', () => {
-      scale = Math.max(0.5, +(scale - 0.1).toFixed(2));
-      applyScale();
-    });
-
-    // initial apply
-    applyScale();
-  }
-
-  // wait for body
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTextResizer);
-  } else {
-    initTextResizer();
-  }
-})();
-
-
-
-
-/*
-
-// Remove the top Item in Navigation Tree in the Sidebar
-document.addEventListener("DOMContentLoaded", function () {
-  let tries = 0; // to cancel after a fixed number of tries
-  let interval = setInterval(function () {
-    tries++;
-    const sideTreeUL = document.querySelector("#side-nav #nav-tree-contents > ul");
-    if (!sideTreeUL) {
-      if (tries >= 10)
-        clearInterval(interval);
-      return;
-    }
-
-    const rootLi = sideTreeUL.querySelector("li:first-child");
-    if (!rootLi) {
-      clearInterval(interval);
-      return;
-    }
-
-    const nested = rootLi.querySelector("ul");
-    if (nested) {
-      Array.from(nested.children).forEach(li => {
-        sideTreeUL.appendChild(li);
-        li.style.setProperty("margin-left", "-16px", "important");
-      });
-    }
-
-    rootLi.remove();
-    clearInterval(interval);
-  }, 100);
-});
-
-*/
