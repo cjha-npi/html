@@ -30,7 +30,7 @@
 /* Apply custom changes to selected and/or current item */
 #side-nav #nav-tree-contents .item.selected,
 #side-nav #nav-tree-contents .item.current {
-  color: var(--page-foreground-color) !important;
+  color: rgb(255, 255, 255) !important;
   width: calc(100% - 10px) !important;
   border-radius: 6px !important;
   margin-left: 5px !important;
@@ -42,12 +42,12 @@
 
 html:not(.dark-mode) #side-nav #nav-tree-contents .item.selected,
 html:not(.dark-mode) #side-nav #nav-tree-contents .item.current {
-  background-color: rgba(20, 110, 210, 0.35) !important;
+  background-color: rgba(20, 110, 210) !important;
 }
 
 html.dark-mode #side-nav #nav-tree-contents .item.selected,
 html.dark-mode #side-nav #nav-tree-contents .item.current {
-  background-color: rgba(20, 110, 210, 0.3) !important;
+  background-color: rgba(20, 110, 210) !important;
 }
 
 #side-nav #nav-tree-contents .item > a {
