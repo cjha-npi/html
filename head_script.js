@@ -169,21 +169,38 @@
     localStorage.setItem(SHA_STORAGE_KEY, newSha);
   }
 
+  async function fetchRepoUpdatedAt(user, repo) {
+    const url = `https://api.github.com/repos/${user}/${repo}`;
+    const resp = await fetch(url, {
+      headers: { 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (!resp.ok) throw new Error(`GitHub API returned HTTP ${resp.status}`);
+    const { updated_at } = await resp.json();
+    return updated_at;  // e.g. "2025-05-21T14:35:42Z"
+  }
 
   (async function initAutoReload() {
     console.log('[Auto-Reload] ---- Init ----');
 
     const { hostname, pathname } = window.location;
-    if (!hostname.endsWith('.github.io')){
+    if (!hostname.endsWith('.github.io')) {
       console.log('[Auto-Reload] Not hosted on GitHub. Returning...');
       return;
     }
+    else {
+      console.log('[Auto-Reload] Hosted on GitHub.');
+    }
 
+    
     const parts = pathname.replace(/^\/|\/$/g, '').split('/');
     const user = hostname.replace('.github.io', '');
     // project‐page: first segment is repo name; user‐page: repo === user
     const repo = parts[0] || user;
 
+    const lastUpdated = await fetchRepoUpdatedAt(user, repo);
+    console.log(`[Auto-Reload] Repo was last updated at ${lastUpdated}`);
+
+    /*
     let newSha;
 
     // 2) Fetch the GitHub Pages branch’s current SHA
@@ -194,11 +211,17 @@
       return;
     }
 
-    if(lastSha && lastSha !== newSha){
-      console.log('[AUTO-RELOAD] missed update detected; scheduling reload…');
-      setTimeout(() => {
-        reloadAndStore(newSha);
-      }, RELOAD_DELAY);
+    if (lastSha) {
+      console.log('[Auto-Reload] Valid Last SHA. Checking for changes...');
+      if (lastSha !== newSha) {
+        console.log('[AUTO-RELOAD] missed update detected; scheduling reload…');
+        setTimeout(() => {
+          reloadAndStore(newSha);
+        }, RELOAD_DELAY);
+      }
+    }
+    else {
+      console.log('[Auto-Reload] Invalid Last SHA. Assigning new SHA to it.')
     }
 
     setInterval(async () => {
@@ -210,13 +233,14 @@
             reloadAndStore(newSha);
           }, RELOAD_DELAY);
         }
-        else{
+        else {
           console.log('[AUTO-RELOAD] No new deployment');
         }
       } catch (err) {
         console.error('[AUTO-RELOAD] polling error:', err);
       }
     }, POLL_INTERVAL);
+    */
   })();
 
   // —————————————————————————————————————————————
