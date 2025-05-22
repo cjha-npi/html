@@ -77,7 +77,7 @@
         replaceArrows();
         mo.observe(sideNav, { childList: true, subtree: true });
       }
-      else{
+      else {
         pruned = pruneNav();
       }
     });
@@ -125,7 +125,100 @@
 
     window.addEventListener('resize', debounce(updatePlaceholder, 200));
   }
-  
+
+  // —————————————————————————————————————————————
+  // AUTO-RELOAD
+  // —————————————————————————————————————————————
+  const GIT_BRANCH = 'main'; // branch on GitGub
+  const POLL_INTERVAL = 2 * 60_000; // poll every 5 minutes
+  const RELOAD_DELAY = 5 * 60_000; // reload 5 minutes after detect
+  const SHA_STORAGE_KEY = 'AutoReload_SHAStorageKey'; // localStorage key to remember last‐seen SHA
+
+  let lastSha = localStorage.getItem(SHA_STORAGE_KEY);
+
+  async function fetchLatestSha(user, repo, branch) {
+    const url = `https://api.github.com/repos/${user}/${repo}/commits/${branch}`;
+    const resp = await fetch(url, {
+      headers: { 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (!resp.ok) {
+      console.warn(`[AUTO-RELOAD] [Fetch Latest SHA] - GitHub API returned HTTP ${resp.status}`);
+      throw new Error(`GitHub API returned HTTP ${resp.status}`);
+    }
+    const data = await resp.json();
+    return data.sha;
+  }
+
+  function reloadAndStore(newSha) {
+    console.log('[Reload] Prv:', lastSha, 'New:', newSha);
+    // 1) Find every <link rel="stylesheet"> on the page
+    document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+      try {
+        // 2) Parse its href into a URL object
+        const u = new URL(link.href);
+        // 3) Add or replace the “_t” query-parameter with the current timestamp
+        u.searchParams.set('_t', Date.now());
+        // 4) Write that back to the link’s href, e.g. “style.css?_t=1623456789012”
+        link.href = u.toString();
+      } catch (_) {
+        // 5) If the href wasn’t a valid URL, just skip it
+      }
+    });
+    location.reload();
+    lastSha = newSha;
+    localStorage.setItem(SHA_STORAGE_KEY, newSha);
+  }
+
+
+  (async function initAutoReload() {
+    console.log('[Auto-Reload] ---- Init ----');
+
+    const { hostname, pathname } = window.location;
+    if (!hostname.endsWith('.github.io')){
+      console.log('[Auto-Reload] Not hosted on GitHub. Returning...');
+      return;
+    }
+
+    const parts = pathname.replace(/^\/|\/$/g, '').split('/');
+    const user = hostname.replace('.github.io', '');
+    // project‐page: first segment is repo name; user‐page: repo === user
+    const repo = parts[0] || user;
+
+    let newSha;
+
+    // 2) Fetch the GitHub Pages branch’s current SHA
+    try {
+      newSha = await fetchLatestSha(user, repo, GIT_BRANCH);
+    } catch (err) {
+      console.warn('[AUTO-RELOAD] initial SHA fetch failed:', err);
+      return;
+    }
+
+    if(lastSha && lastSha !== newSha){
+      console.log('[AUTO-RELOAD] missed update detected; scheduling reload…');
+      setTimeout(() => {
+        reloadAndStore(newSha);
+      }, RELOAD_DELAY);
+    }
+
+    setInterval(async () => {
+      try {
+        const newSha = await fetchLatestSha(user, repo, GIT_BRANCH);
+        if (lastSha !== newSha) {
+          console.log('[AUTO-RELOAD] new deploy detected; scheduling reload…');
+          setTimeout(() => {
+            reloadAndStore(newSha);
+          }, RELOAD_DELAY);
+        }
+        else{
+          console.log('[AUTO-RELOAD] No new deployment');
+        }
+      } catch (err) {
+        console.error('[AUTO-RELOAD] polling error:', err);
+      }
+    }, POLL_INTERVAL);
+  })();
+
   // —————————————————————————————————————————————
   // BOOTSTRAP WHEN DOM IS READY
   // —————————————————————————————————————————————
