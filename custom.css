@@ -44,7 +44,7 @@ html:not(.dark-mode) #side-nav #nav-tree-contents .item.current {
 
 html.dark-mode #side-nav #nav-tree-contents .item.selected,
 html.dark-mode #side-nav #nav-tree-contents .item.current {
-  background-color: rgba(20, 110, 210, 0.3) !important;
+  background-color: rgba(220, 110, 210, 0.3) !important;
 }
 
 #side-nav #nav-tree-contents .item > a {
