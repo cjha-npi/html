@@ -179,6 +179,9 @@
     return updated_at;  // e.g. "2025-05-21T14:35:42Z"
   }
 
+  console.log('Page last modified (HTTP header):', document.lastModified);
+
+
   (async function initAutoReload() {
     console.log('[Auto-Reload] ---- Init ----');
 
@@ -191,18 +194,18 @@
       console.log('[Auto-Reload] Hosted on GitHub.');
     }
 
-    
+
     const parts = pathname.replace(/^\/|\/$/g, '').split('/');
     const user = hostname.replace('.github.io', '');
     // project‐page: first segment is repo name; user‐page: repo === user
     const repo = parts[0] || user;
 
+    /*
     const lastUpdated = await fetchRepoUpdatedAt(user, repo);
     console.log(`[Auto-Reload] Repo was last updated at ${lastUpdated}`);
-
-    /*
+ 
     let newSha;
-
+ 
     // 2) Fetch the GitHub Pages branch’s current SHA
     try {
       newSha = await fetchLatestSha(user, repo, GIT_BRANCH);
@@ -210,7 +213,7 @@
       console.warn('[AUTO-RELOAD] initial SHA fetch failed:', err);
       return;
     }
-
+ 
     if (lastSha) {
       console.log('[Auto-Reload] Valid Last SHA. Checking for changes...');
       if (lastSha !== newSha) {
@@ -223,7 +226,7 @@
     else {
       console.log('[Auto-Reload] Invalid Last SHA. Assigning new SHA to it.')
     }
-
+ 
     setInterval(async () => {
       try {
         const newSha = await fetchLatestSha(user, repo, GIT_BRANCH);
