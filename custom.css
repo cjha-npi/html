@@ -2,6 +2,7 @@
 #side-nav {
   --tree-item-height: 1.4rem;
   min-width: 50px !important;
+  background: var(--page-background-color) !important;
 }
 
 /* Change the navigation tree arrow type, arrow is changed to circle in the head_script.js file */
@@ -29,8 +30,39 @@
 /* Apply custom changes to selected and/or current item */
 #side-nav #nav-tree-contents .item.selected,
 #side-nav #nav-tree-contents .item.current {
-  color: rgb(255, 255, 255) !important;
-  background-color: rgba(255, 0, 0, 1) !important;
+  color: var(--page-foreground-color) !important;
+  width: calc(100% - 10px) !important;
+  margin-left: 5px !important;
+  padding: 4px 0px !important;
+  border-radius: 6px !important;
+}
+
+html:not(.dark-mode) #side-nav #nav-tree-contents .item.selected,
+html:not(.dark-mode) #side-nav #nav-tree-contents .item.current {
+  background-color: rgba(20, 110, 210, 0.35) !important;
+}
+
+html.dark-mode #side-nav #nav-tree-contents .item.selected,
+html.dark-mode #side-nav #nav-tree-contents .item.current {
+  background-color: rgba(20, 110, 210, 0.3) !important;
+}
+
+#side-nav #nav-tree-contents .item > a {
+  margin-left: -10px !important;
+}
+
+#side-nav #nav-tree-contents .item.selected > a,
+#side-nav #nav-tree-contents .item.selected > a {
+  margin-left: -15px !important;
+}
+
+#side-nav #nav-tree-contents .item:not(:has(>a)) > .label {
+  margin-left: -10px !important;
+}
+
+#side-nav #nav-tree-contents .item.selected:not(:has(>a)) > .label,
+#side-nav #nav-tree-contents .item.current:not(:has(>a)) > .label {
+  margin-left: -15px !important;
 }
 
 /* Change the values so that on non-common display sizes it appears correctly */
