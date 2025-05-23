@@ -133,23 +133,6 @@
 
   // This function is executed when the DOM content has been loaded
   function onReady() {
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then(reg => {
-          console.log('ServiceWorker registered (scope:', reg.scope, ')');
-        })
-        .catch(err => {
-          console.error('ServiceWorker registration failed:', err);
-        });
-
-      // 2) Listen for postMessage from the SW
-      navigator.serviceWorker.addEventListener('message', event => {
-        console.log('[SW] URL:', event.data.url, 'From:', event.data.from);
-      });
-    }
-
-
     initNavTweaks();
     initSearchPlaceholder();
   }
