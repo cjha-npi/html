@@ -1,0 +1,7 @@
+<map id="npi::Link::operator bool" name="npi::Link::operator bool">
+<area shape="rect" id="Node000001" title="Explicit boolean conversion operator (e.g. if(link){...})." alt="" coords="5,5,159,32"/>
+<area shape="rect" id="Node000002" href="$df/d94/classnpi_1_1_link.html#a0afa8ac8869c66d944896c24822e1cbc" title="Check whether the link currently holds a valid object." alt="" coords="207,5,330,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,16,191,16,191,21,159,21"/>
+<area shape="rect" id="Node000003" href="$df/d94/classnpi_1_1_link.html#ae203b61846ab71e431c98c3aaaf3a3a5" title="Retrieve a raw pointer to the managed object, if any." alt="" coords="378,5,481,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="331,16,362,16,362,21,331,21"/>
+</map>

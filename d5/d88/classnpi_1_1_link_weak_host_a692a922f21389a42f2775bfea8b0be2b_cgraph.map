@@ -1,0 +1,5 @@
+<map id="npi::LinkWeakHost::isValid_" name="npi::LinkWeakHost::isValid_">
+<area shape="rect" id="Node000001" title="Check if the weak host still references a live object." alt="" coords="5,5,145,48"/>
+<area shape="rect" id="Node000002" href="$d5/d88/classnpi_1_1_link_weak_host.html#aa54105103fd6656c93b4a6a30121fc53" title="Check if the weak reference is expired." alt="" coords="193,5,332,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,24,177,24,177,29,145,29"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="npi::Link::operator=" name="npi::Link::operator=">
+<area shape="rect" id="Node000001" title="Polymorphic assignment operator." alt="" coords="5,5,139,32"/>
+<area shape="rect" id="Node000002" href="$df/d94/classnpi_1_1_link.html#a49ef453c2ae07faa7affc879993e4427" title="Internal helper to assign from another polymorphically related Link object." alt="" coords="187,5,310,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,16,171,16,171,21,139,21"/>
+<area shape="rect" id="Node000003" href="$df/d94/classnpi_1_1_link.html#ae203b61846ab71e431c98c3aaaf3a3a5" title="Retrieve a raw pointer to the managed object, if any." alt="" coords="358,5,461,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="311,16,342,16,342,21,311,21"/>
+</map>

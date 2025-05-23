@@ -1,0 +1,11 @@
+<map id="npi::LinkHost::operator=" name="npi::LinkHost::operator=">
+<area shape="rect" id="Node000001" title="Polymorphic assignment operator." alt="" coords="5,56,167,83"/>
+<area shape="rect" id="Node000002" href="$dc/d75/classnpi_1_1_link_host.html#a59021c0af01b28c7a549c8ce16ef0368" title="Internal helper to assign from another polymorphically related LinkHost object." alt="" coords="215,56,366,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,67,199,67,199,72,167,72"/>
+<area shape="rect" id="Node000003" href="$dc/d75/classnpi_1_1_link_host.html#a6cd9c1bd41b58506f19e67a257f84043" title="Retrieve the raw pointer to the hosted object." alt="" coords="427,5,558,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="346,53,421,34,422,39,347,58"/>
+<area shape="rect" id="Node000004" href="$dc/d75/classnpi_1_1_link_host.html#af25e157f0b5ab97c2b97cc0b4612f02a" title="Check whether two LinkHost instances refer to the same object and observers (universal and local)...." alt="" coords="414,56,571,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="367,67,399,67,399,72,367,72"/>
+<area shape="rect" id="Node000005" href="$dc/d75/classnpi_1_1_link_host.html#a8621c5f37a5de093341d6dc2f683b31a" title="Reset the host, releasing the object and invalidating all links." alt="" coords="422,107,564,133"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="347,81,422,100,421,105,346,86"/>
+</map>

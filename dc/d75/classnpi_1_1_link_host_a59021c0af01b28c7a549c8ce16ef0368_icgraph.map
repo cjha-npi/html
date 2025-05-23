@@ -1,0 +1,7 @@
+<map id="npi::LinkHost::assign_" name="npi::LinkHost::assign_">
+<area shape="rect" id="Node000001" title="Internal helper to assign from another polymorphically related LinkHost object." alt="" coords="215,31,366,57"/>
+<area shape="rect" id="Node000002" href="$dc/d75/classnpi_1_1_link_host.html#a490ac825e921d673a3a32c94e7058d1d" title="Polymorphic converting copy constructor." alt="" coords="7,5,165,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,35,165,31,166,26,200,30"/>
+<area shape="rect" id="Node000003" href="$dc/d75/classnpi_1_1_link_host.html#aa7c182e77bd354c70fb694ac3b1a6d76" title="Polymorphic assignment operator." alt="" coords="5,56,167,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="200,58,168,62,167,57,199,53"/>
+</map>

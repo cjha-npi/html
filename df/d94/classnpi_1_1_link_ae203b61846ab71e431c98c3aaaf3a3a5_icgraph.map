@@ -1,0 +1,27 @@
+<map id="npi::Link::get_" name="npi::Link::get_">
+<area shape="rect" id="Node000001" title="Retrieve a raw pointer to the managed object, if any." alt="" coords="396,259,499,285"/>
+<area shape="rect" id="Node000002" href="$df/d94/classnpi_1_1_link.html#a49ef453c2ae07faa7affc879993e4427" title="Internal helper to assign from another polymorphically related Link object." alt="" coords="216,56,339,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="435,245,422,211,403,171,378,131,346,97,328,85,331,81,350,93,382,128,408,169,427,209,440,243"/>
+<area shape="rect" id="Node000005" href="$df/d94/classnpi_1_1_link.html#a0afa8ac8869c66d944896c24822e1cbc" title="Check whether the link currently holds a valid object." alt="" coords="216,107,339,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="429,246,395,196,372,170,346,148,326,136,329,132,350,143,376,166,399,193,434,243"/>
+<area shape="rect" id="Node000007" href="$df/d94/classnpi_1_1_link.html#aee11aebd0ee056ca16228499caffe0c4" title="Inequality comparison with a null pointer." alt="" coords="209,157,346,184"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="418,250,385,224,347,198,322,187,324,182,349,194,388,219,422,246"/>
+<area shape="rect" id="Node000008" href="$df/d94/classnpi_1_1_link.html#a49e97ca1b758fa82bbec1bf023f90b41" title="Dereference operator to obtain a reference to the managed object." alt="" coords="212,208,342,235"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="385,256,324,238,326,233,387,251"/>
+<area shape="rect" id="Node000009" href="$df/d94/classnpi_1_1_link.html#afd3c88fe22396a22e7cd1816c4dd9635" title="Pointer&#45;like access operator." alt="" coords="209,259,346,285"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="380,275,347,275,347,269,380,269"/>
+<area shape="rect" id="Node000010" href="$df/d94/classnpi_1_1_link.html#abd093b8de4a754945b7a74ea437cf45e" title="Compare two Link objects for equality." alt="" coords="207,309,348,336"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="387,293,326,311,324,306,385,288"/>
+<area shape="rect" id="Node000011" href="$df/d94/classnpi_1_1_link.html#a6ca86b92040321c72196dc0929af933e" title="Compare this Link to a LinkHost for equality." alt="" coords="207,360,348,387"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="422,298,388,325,349,350,324,362,322,357,347,346,385,320,418,294"/>
+<area shape="rect" id="Node000012" href="$df/d94/classnpi_1_1_link.html#a84c0017edc714b5163ee7392efef8503" title="Compare the stored pointer to a raw pointer." alt="" coords="207,411,348,437"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="434,301,399,351,376,378,350,401,329,412,326,408,346,396,372,374,395,348,429,298"/>
+<area shape="rect" id="Node000013" href="$df/d94/classnpi_1_1_link.html#aab2be36466d65f729d6e4fb99dc2e5b4" title="Compare the stored pointer to a null pointer." alt="" coords="207,461,348,488"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="440,301,427,335,408,375,382,416,350,451,331,463,328,459,346,447,378,413,403,373,422,333,435,299"/>
+<area shape="rect" id="Node000003" href="$df/d94/classnpi_1_1_link.html#a9f3660a3ec705d39f4118c467d3608ef" title="Polymorphic non&#45;explicit converting copy constructor." alt="" coords="31,5,133,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="207,54,133,34,134,29,209,49"/>
+<area shape="rect" id="Node000004" href="$df/d94/classnpi_1_1_link.html#acca70340de027d479c207417fcad32dd" title="Polymorphic assignment operator." alt="" coords="15,56,149,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="200,72,149,72,149,67,200,67"/>
+<area shape="rect" id="Node000006" href="$df/d94/classnpi_1_1_link.html#ad1586f240337b35f18f9db888416d7df" title="Explicit boolean conversion operator (e.g. if(link){...})." alt="" coords="5,107,159,133"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="200,123,159,123,159,117,200,117"/>
+</map>

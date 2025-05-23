@@ -1,15 +1,15 @@
-// head_script.js
+
 ; (function () {
   'use strict';
 
   // —————————————————————————————————————————————
   // Debounce
   // —————————————————————————————————————————————
-  /* Debouncing is a simple way to “coalesce” a rapid burst of events into a single call after things have settled down. */
+  // Debouncing is a simple way to “coalesce” a rapid burst of events into a single call after things have settled down.
 
   function debounce(fn, ms) {
     let t;                      // holds the pending timeout ID
-    return (...args) => {      // returns a wrapped version of `fn`
+    return (...args) => {       // returns a wrapped version of `fn`
       clearTimeout(t);          // cancel any previous scheduled call
       t = setTimeout(() =>      // schedule a new one
         fn(...args),            // —that actually calls `fn` with the latest args—
@@ -22,6 +22,7 @@
   // NAV TREE TWEAKS: ARROWS + PRUNE
   // —————————————————————————————————————————————
 
+  // Once pruning is done it doesn't need to fire up again, so we store its done state
   let pruned = false;
 
   // 1) Swap ►/▼ for ●/○ everywhere
@@ -53,7 +54,6 @@
     const nested = firstLi.querySelector('ul');
     if (nested) {
       Array.from(nested.children).forEach(li => {
-        //li.style.marginLeft = '-16px';
         ul.appendChild(li);
       });
     }
@@ -72,10 +72,10 @@
 
     // then observe for any new insertions/changes
     const mo = new MutationObserver(() => {
-      if (pruned) {
-        mo.disconnect();
+      if (pruned) { // first we prune and wait for it to be done
+        mo.disconnect(); // disconnect otherwise it first again because of changing the icons
         replaceArrows();
-        mo.observe(sideNav, { childList: true, subtree: true });
+        mo.observe(sideNav, { childList: true, subtree: true }); // reconnect
       }
       else {
         pruned = pruneNav();
@@ -113,7 +113,7 @@
     // run once right away to pick up whatever the default is
     updatePlaceholder();
 
-    // patch the “you clicked an item” hook
+    // Run the updatePlaceholder again when user changes the from search dropdown
     if (typeof searchBox.OnSelectItem === 'function') {
       const orig = searchBox.OnSelectItem;
       searchBox.OnSelectItem = function (id) {
@@ -123,137 +123,38 @@
       };
     }
 
+    // The search bar updates when resizing, so listen to it, debounce till it settles and then call updatePlaceholder
     window.addEventListener('resize', debounce(updatePlaceholder, 200));
   }
 
   // —————————————————————————————————————————————
-  // AUTO-RELOAD
+  // DOM IS READY
   // —————————————————————————————————————————————
-  const GIT_BRANCH = 'main'; // branch on GitGub
-  const POLL_INTERVAL = 2 * 60_000; // poll every 5 minutes
-  const RELOAD_DELAY = 5 * 60_000; // reload 5 minutes after detect
-  const SHA_STORAGE_KEY = 'AutoReload_SHAStorageKey'; // localStorage key to remember last‐seen SHA
 
-  let lastSha = localStorage.getItem(SHA_STORAGE_KEY);
-
-  async function fetchLatestSha(user, repo, branch) {
-    const url = `https://api.github.com/repos/${user}/${repo}/commits/${branch}`;
-    const resp = await fetch(url, {
-      headers: { 'Accept': 'application/vnd.github.v3+json' }
-    });
-    if (!resp.ok) {
-      console.warn(`[AUTO-RELOAD] [Fetch Latest SHA] - GitHub API returned HTTP ${resp.status}`);
-      throw new Error(`GitHub API returned HTTP ${resp.status}`);
-    }
-    const data = await resp.json();
-    return data.sha;
-  }
-
-  function reloadAndStore(newSha) {
-    console.log('[Reload] Prv:', lastSha, 'New:', newSha);
-    // 1) Find every <link rel="stylesheet"> on the page
-    document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
-      try {
-        // 2) Parse its href into a URL object
-        const u = new URL(link.href);
-        // 3) Add or replace the “_t” query-parameter with the current timestamp
-        u.searchParams.set('_t', Date.now());
-        // 4) Write that back to the link’s href, e.g. “style.css?_t=1623456789012”
-        link.href = u.toString();
-      } catch (_) {
-        // 5) If the href wasn’t a valid URL, just skip it
-      }
-    });
-    location.reload();
-    lastSha = newSha;
-    localStorage.setItem(SHA_STORAGE_KEY, newSha);
-  }
-
-  async function fetchRepoUpdatedAt(user, repo) {
-    const url = `https://api.github.com/repos/${user}/${repo}`;
-    const resp = await fetch(url, {
-      headers: { 'Accept': 'application/vnd.github.v3+json' }
-    });
-    if (!resp.ok) throw new Error(`GitHub API returned HTTP ${resp.status}`);
-    const { updated_at } = await resp.json();
-    return updated_at;  // e.g. "2025-05-21T14:35:42Z"
-  }
-
-  console.log('Page last modified (HTTP header):', document.lastModified);
-
-
-  (async function initAutoReload() {
-    console.log('[Auto-Reload] ---- Init ----');
-
-    const { hostname, pathname } = window.location;
-    if (!hostname.endsWith('.github.io')) {
-      console.log('[Auto-Reload] Not hosted on GitHub. Returning...');
-      return;
-    }
-    else {
-      console.log('[Auto-Reload] Hosted on GitHub.');
-    }
-
-
-    const parts = pathname.replace(/^\/|\/$/g, '').split('/');
-    const user = hostname.replace('.github.io', '');
-    // project‐page: first segment is repo name; user‐page: repo === user
-    const repo = parts[0] || user;
-
-    /*
-    const lastUpdated = await fetchRepoUpdatedAt(user, repo);
-    console.log(`[Auto-Reload] Repo was last updated at ${lastUpdated}`);
- 
-    let newSha;
- 
-    // 2) Fetch the GitHub Pages branch’s current SHA
-    try {
-      newSha = await fetchLatestSha(user, repo, GIT_BRANCH);
-    } catch (err) {
-      console.warn('[AUTO-RELOAD] initial SHA fetch failed:', err);
-      return;
-    }
- 
-    if (lastSha) {
-      console.log('[Auto-Reload] Valid Last SHA. Checking for changes...');
-      if (lastSha !== newSha) {
-        console.log('[AUTO-RELOAD] missed update detected; scheduling reload…');
-        setTimeout(() => {
-          reloadAndStore(newSha);
-        }, RELOAD_DELAY);
-      }
-    }
-    else {
-      console.log('[Auto-Reload] Invalid Last SHA. Assigning new SHA to it.')
-    }
- 
-    setInterval(async () => {
-      try {
-        const newSha = await fetchLatestSha(user, repo, GIT_BRANCH);
-        if (lastSha !== newSha) {
-          console.log('[AUTO-RELOAD] new deploy detected; scheduling reload…');
-          setTimeout(() => {
-            reloadAndStore(newSha);
-          }, RELOAD_DELAY);
-        }
-        else {
-          console.log('[AUTO-RELOAD] No new deployment');
-        }
-      } catch (err) {
-        console.error('[AUTO-RELOAD] polling error:', err);
-      }
-    }, POLL_INTERVAL);
-    */
-  })();
-
-  // —————————————————————————————————————————————
-  // BOOTSTRAP WHEN DOM IS READY
-  // —————————————————————————————————————————————
+  // This function is executed when the DOM content has been loaded
   function onReady() {
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => {
+          console.log('ServiceWorker registered (scope:', reg.scope, ')');
+        })
+        .catch(err => {
+          console.error('ServiceWorker registration failed:', err);
+        });
+
+      // 2) Listen for postMessage from the SW
+      navigator.serviceWorker.addEventListener('message', event => {
+        console.log('🔔 Message from SW:', event.data);
+      });
+    }
+
+    
     initNavTweaks();
     initSearchPlaceholder();
   }
 
+  // Listen to document content load
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', onReady);
   } else {

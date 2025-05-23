@@ -1,0 +1,12 @@
+digraph "npi::Link::operator-&gt;"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,style=rounded,filled,fillcolor=transparent];
+  rankdir="LR";
+  Node1 [id="Node000001",label="npi::Link::operator-\>",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Pointer-like access operator."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="npi::Link::get_",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$df/d94/classnpi_1_1_link.html#ae203b61846ab71e431c98c3aaaf3a3a5",tooltip="Retrieve a raw pointer to the managed object, if any."];
+}

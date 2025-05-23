@@ -1,0 +1,27 @@
+<map id="npi::LinkHost::get_" name="npi::LinkHost::get_">
+<area shape="rect" id="Node000001" title="Retrieve the raw pointer to the hosted object." alt="" coords="452,259,583,285"/>
+<area shape="rect" id="Node000002" href="$dc/d75/classnpi_1_1_link_host.html#a59021c0af01b28c7a549c8ce16ef0368" title="Internal helper to assign from another polymorphically related LinkHost object." alt="" coords="244,56,395,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="503,245,488,211,466,171,437,131,402,97,383,86,385,81,406,93,442,127,471,168,493,208,508,243"/>
+<area shape="rect" id="Node000005" href="$dc/d75/classnpi_1_1_link_host.html#a61f11562475a5e48d58ddc0e85a956b7" title="Check whether the host owns an object." alt="" coords="244,107,395,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="498,247,458,196,432,170,403,148,380,136,382,131,405,143,435,166,462,193,502,244"/>
+<area shape="rect" id="Node000007" href="$dc/d75/classnpi_1_1_link_host.html#a6fc6cc45006e9e852b019166c75ce24b" title="Inequality comparison with a null pointer." alt="" coords="237,157,402,184"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="486,251,448,224,403,198,374,187,376,182,405,194,450,220,489,247"/>
+<area shape="rect" id="Node000008" href="$dc/d75/classnpi_1_1_link_host.html#aa556b0640e3ba8d6a555fb8b2a615e8b" title="Dereference operator to obtain a reference to the hosted object." alt="" coords="240,208,398,235"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="447,257,374,238,375,233,448,252"/>
+<area shape="rect" id="Node000009" href="$dc/d75/classnpi_1_1_link_host.html#a1b291b8559bbd1e5a2d53076334aa932" title="Pointer&#45;like access operator." alt="" coords="237,259,402,285"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="437,275,403,275,403,269,437,269"/>
+<area shape="rect" id="Node000010" href="$dc/d75/classnpi_1_1_link_host.html#a81ef04ad98a7dfdfcd17fd52fd3f43a1" title="Compare this LinkHost object to a Link object for equality." alt="" coords="235,309,404,336"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="448,292,375,311,374,306,447,287"/>
+<area shape="rect" id="Node000011" href="$dc/d75/classnpi_1_1_link_host.html#aa86540af33b8e041066e4249d6f16005" title="Compare this LinkHost object to another LinkHost object for equality." alt="" coords="235,360,404,387"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="489,297,450,324,405,350,376,362,374,357,403,346,448,320,486,293"/>
+<area shape="rect" id="Node000012" href="$dc/d75/classnpi_1_1_link_host.html#af2ecaae32080f9da0eee819f217823c0" title="Compare to raw pointer for equality." alt="" coords="235,411,404,437"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="502,300,462,351,435,378,405,401,382,413,380,408,403,396,432,374,458,348,498,297"/>
+<area shape="rect" id="Node000013" href="$dc/d75/classnpi_1_1_link_host.html#a833c71cd7b0e106af7d070461b98e479" title="Compare the stored pointer to a null pointer." alt="" coords="235,461,404,488"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="508,301,493,336,471,376,442,417,406,451,385,463,383,458,402,447,437,413,466,373,488,333,503,299"/>
+<area shape="rect" id="Node000003" href="$dc/d75/classnpi_1_1_link_host.html#a490ac825e921d673a3a32c94e7058d1d" title="Polymorphic converting copy constructor." alt="" coords="17,5,175,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="242,55,157,35,159,30,243,49"/>
+<area shape="rect" id="Node000004" href="$dc/d75/classnpi_1_1_link_host.html#aa7c182e77bd354c70fb694ac3b1a6d76" title="Polymorphic assignment operator." alt="" coords="15,56,177,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="228,72,177,72,177,67,228,67"/>
+<area shape="rect" id="Node000006" href="$dc/d75/classnpi_1_1_link_host.html#a3808e1b2809ec5532d9cb4e8d50741dd" title="Explicit boolean conversion operator (e.g. if(linkHost){...})." alt="" coords="5,107,187,133"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="228,123,187,123,187,117,228,117"/>
+</map>

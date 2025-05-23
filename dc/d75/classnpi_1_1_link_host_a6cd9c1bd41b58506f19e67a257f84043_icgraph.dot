@@ -1,0 +1,34 @@
+digraph "npi::LinkHost::get_"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,style=rounded,filled,fillcolor=transparent];
+  rankdir="RL";
+  Node1 [id="Node000001",label="npi::LinkHost::get_",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Retrieve the raw pointer to the hosted object."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="npi::LinkHost::assign_",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d75/classnpi_1_1_link_host.html#a59021c0af01b28c7a549c8ce16ef0368",tooltip="Internal helper to assign from another polymorphically related LinkHost object."];
+  Node2 -> Node3 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="npi::LinkHost::LinkHost",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d75/classnpi_1_1_link_host.html#a490ac825e921d673a3a32c94e7058d1d",tooltip="Polymorphic converting copy constructor."];
+  Node2 -> Node4 [id="edge3_Node000002_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="npi::LinkHost::operator=",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d75/classnpi_1_1_link_host.html#aa7c182e77bd354c70fb694ac3b1a6d76",tooltip="Polymorphic assignment operator."];
+  Node1 -> Node5 [id="edge4_Node000001_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="npi::LinkHost::isValid_",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d75/classnpi_1_1_link_host.html#a61f11562475a5e48d58ddc0e85a956b7",tooltip="Check whether the host owns an object."];
+  Node5 -> Node6 [id="edge5_Node000005_Node000006",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="npi::LinkHost::operator bool",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d75/classnpi_1_1_link_host.html#a3808e1b2809ec5532d9cb4e8d50741dd",tooltip="Explicit boolean conversion operator (e.g. if(linkHost){...})."];
+  Node1 -> Node7 [id="edge6_Node000001_Node000007",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node7 [id="Node000007",label="npi::LinkHost::operator!=",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d75/classnpi_1_1_link_host.html#a6fc6cc45006e9e852b019166c75ce24b",tooltip="Inequality comparison with a null pointer."];
+  Node1 -> Node8 [id="edge7_Node000001_Node000008",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node8 [id="Node000008",label="npi::LinkHost::operator*",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d75/classnpi_1_1_link_host.html#aa556b0640e3ba8d6a555fb8b2a615e8b",tooltip="Dereference operator to obtain a reference to the hosted object."];
+  Node1 -> Node9 [id="edge8_Node000001_Node000009",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node9 [id="Node000009",label="npi::LinkHost::operator-\>",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d75/classnpi_1_1_link_host.html#a1b291b8559bbd1e5a2d53076334aa932",tooltip="Pointer-like access operator."];
+  Node1 -> Node10 [id="edge9_Node000001_Node000010",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node10 [id="Node000010",label="npi::LinkHost::operator==",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d75/classnpi_1_1_link_host.html#a81ef04ad98a7dfdfcd17fd52fd3f43a1",tooltip="Compare this LinkHost object to a Link object for equality."];
+  Node1 -> Node11 [id="edge10_Node000001_Node000011",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node11 [id="Node000011",label="npi::LinkHost::operator==",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d75/classnpi_1_1_link_host.html#aa86540af33b8e041066e4249d6f16005",tooltip="Compare this LinkHost object to another LinkHost object for equality."];
+  Node1 -> Node12 [id="edge11_Node000001_Node000012",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node12 [id="Node000012",label="npi::LinkHost::operator==",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d75/classnpi_1_1_link_host.html#af2ecaae32080f9da0eee819f217823c0",tooltip="Compare to raw pointer for equality."];
+  Node1 -> Node13 [id="edge12_Node000001_Node000013",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node13 [id="Node000013",label="npi::LinkHost::operator==",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/d75/classnpi_1_1_link_host.html#a833c71cd7b0e106af7d070461b98e479",tooltip="Compare the stored pointer to a null pointer."];
+}

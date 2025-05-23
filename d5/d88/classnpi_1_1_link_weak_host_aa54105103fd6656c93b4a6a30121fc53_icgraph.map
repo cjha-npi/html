@@ -1,0 +1,7 @@
+<map id="npi::LinkWeakHost::expired_" name="npi::LinkWeakHost::expired_">
+<area shape="rect" id="Node000001" title="Check if the weak reference is expired." alt="" coords="193,39,332,81"/>
+<area shape="rect" id="Node000002" href="$d5/d88/classnpi_1_1_link_weak_host.html#a692a922f21389a42f2775bfea8b0be2b" title="Check if the weak host still references a live object." alt="" coords="5,5,145,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="177,48,145,42,146,36,178,42"/>
+<area shape="rect" id="Node000003" href="$d5/d88/classnpi_1_1_link_weak_host.html#a29e58679c371144363e23e86f8788b5b" title="Explicit boolean conversion operator." alt="" coords="5,72,145,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="178,78,146,84,145,78,177,72"/>
+</map>
