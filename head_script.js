@@ -145,11 +145,11 @@
 
       // 2) Listen for postMessage from the SW
       navigator.serviceWorker.addEventListener('message', event => {
-        console.log('🔔 Message from SW:', event.data);
+        console.log('[SW] URL:', event.data.url, 'From:', event.data.from);
       });
     }
 
-    
+
     initNavTweaks();
     initSearchPlaceholder();
   }
